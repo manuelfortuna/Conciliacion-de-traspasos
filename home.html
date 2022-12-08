@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!-- Archivo CSS Bootstrap 5 -->
+
+  <link href="css/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/estilos.css" media="print" />
+
+  <!--Google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;800&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;300;400&display=swap" rel="stylesheet">
+
+
+  <title>Inventarios</title>
+</head>
+
+
+<body>
+
+
+  <!--Navbar de inicio-->
+  <nav class="navbar bg-light">
+    <div class="container-fluid">
+      <!--Contenedor de 2 columnas col-->
+      <div class="col-6 col-sm-3">
+        <!--Contenedor de la imagen y el nombre de la empresa-->
+        <div class="container ">
+          <div class="row ">
+            <div class="col ">
+              <a class="navbar-brand">
+                <img src="img/narvar/logo.png" alt="" width="110">
+              </a>
+            </div>
+            <!--<div class="col bordes">
+                        <span class="nombreAbarrotera bordes">Mayoreo</span>
+                    </div>-->
+          </div>
+        </div>
+
+      </div>
+      <!--Contenedor con imagen del logo de subodega-->
+      <div class="col-6 col-sm-3 ">
+        <a class="navbar-brand "><img class="subodegaLogo " src="img/narvar/logo-subodega.png" width="220"></a>
+      </div>
+
+    </div>
+  </nav>
+  <!--Cuerpo de pagina-->
+  <h3> </h3>
+  <h3> </h3>
+  <h3> </h3>
+  <h3> </h3>
+
+  <!--Contenedor de campos-->
+  <div class="container tarjeta ">
+
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center titulos_avsa">CONCILIACION DE TRASPASOS</h1>
+      </div>
+    </div>
+
+
+    <br>
+    <br>
+
+
+    <br>
+    <div class="row">
+      <div class="col">
+        <p class="fs-4 textoCuerpo"> Selecciona tu sucursal: </p>
+        <select id="sucOrigen" class="form-select " aria-label="Default select example">
+          <option selected value="0">
+            <p class="textoCuerpo">Sucursal de ORIGEN</p>
+          </option>
+          <option id="origen_V01" value="V01A">V01 EBANO</option>
+          <option id="origen_V06" value="V06A">V06 TAMUIN</option>
+          <option id="origen_V07" value="V07A">V07 TAMAZUNCHALE</option>
+          <option id="origen_V09" value="V09A">V09 C.PANADERO</option>
+          <option id="origen_V10" value="V10A">V10 TIPZEN</option>
+          <option id="origen_V11" value="V11A">V11 XILITLA</option>
+          <option id="origen_V12" value="V12A">V12 INGENIO</option>
+          <option id="origen_V13" value="V3A">V13 BRAVO</option>
+          <option id="origen_V14" value="V14A">V14 SAN MIGUEL</option>
+          <option id="origen_V15" value="V15A">V15 CENTRO</option>
+          <option id="origen_V20" value="V20A">V20 MERCADO</option>
+          <option id="origen_V25" value="V25A">V25 NEGRETE</option>
+          <option id="origen_V05M" value="V05M">V05 CEDIS MAYOREO</option>
+          <option id="origen_V05M" value="V05R">V05R CEDIS TRASTIENDA</option>
+          <option id="origen_V05M" value="V05X">V05X CEDIS MERMAS</option>
+        </select>
+        <div class="col">
+          <br>
+          <!--<input type="file" name="inputFile" id="inputFile" onclick="cargaArchivo()">-->
+          <input type="file" name="inputFile" id="inputFileOrigen" onclick="cargaArchivo()">
+          <br>
+          <pre id="output"></pre>
+        </div>
+        <div class="col">
+          <span class="fs-4 textoCuerpo" id="txtOrigen"> Estatus del archivo</span> 
+          <textarea id="txtTraspasosOrigen" class="form-control fs-6" placeholder="RESULTADOS" id="floatingTextarea"
+            readonly></textarea>
+        </div>
+        <br>
+
+      </div>
+      <div class="col">
+        <p class="fs-4 textoCuerpo"> Selecciona la sucursal a conciliar: </p>
+        <select id="sucDestino" class="form-select " aria-label="Default select example">
+          <option selected value="0">
+            <p class="textoCuerpo">Sucursal de DESTINO</p>
+          </option>
+          <option id="destino_V01" value="V01A">V01 EBANO</option>
+          <option id="destino_V06" value="V06A">V06 TAMUIN</option>
+          <option id="destino_V07" value="V07A">V07 TAMAZUNCHALE</option>
+          <option id="destino_V09" value="V09A">V09 C.PANADERO</option>
+          <option id="destino_V10" value="V10A">V10 TIPZEN</option>
+          <option id="destino_V11" value="V11A">V11 XILITLA</option>
+          <option id="destino_V12" value="V12A">V12 INGENIO</option>
+          <option id="destino_V13" value="V3A">V13 BRAVO</option>
+          <option id="destino_V14" value="V14A">V14 SAN MIGUEL</option>
+          <option id="destino_V15" value="V15A">V15 CENTRO</option>
+          <option id="destino_V20" value="V20A">V20 MERCADO</option>
+          <option id="destino_V25" value="V25A">V25 NEGRETE</option>
+          <option id="destino_V05M" value="V05M">V05 CEDIS MAYOREO</option>
+          <option id="destino_V05M" value="V05R">V05R CEDIS TRASTIENDA</option>
+          <option id="destino_V05M" value="V05X">V05X CEDIS MERMAS</option>
+        </select>
+        <div class="col">
+          <br>
+          <!--<input type="file" name="inputFile" id="inputFile" onclick="cargaArchivo()">-->
+          <input type="file" name="inputFile" id="inputFileDestino" onclick="cargaArchivo()">
+          <br>
+          <pre id="output"></pre>
+        </div>
+        <div class="col">
+          <span class="fs-4 textoCuerpo" id="txtDestino"> Estatus del archivo </span>
+          <textarea id="txtTraspasosDestino" class="form-control fs-6" placeholder="RESULTADOS" id="floatingTextarea"
+            readonly></textarea>
+        </div>
+        <br>
+      </div>
+
+
+
+    </div>
+
+
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <p class="fs-4 textoCuerpo"> Estatus del archivo </p>
+        <textarea id="txtTraspasosResultado" class="form-control fs-5" placeholder="RESULTADO" id="floatingTextarea"
+          readonly></textarea>
+      </div>
+      <div class="row">
+        <div class="col">
+          <br>
+          <button type="button" class="btn btn-success" onclick="conciliar()">Ejecutar Conciliacion</button>
+          <!--<button id="Submit" name="Submit" type="button" class="btn btn-primary" onclick="salvar(txtAreaClavesEntrada2.value)" value="descargar como txt" download="claves.txt">Guardar Archivo</button>-->
+          <button id="Submit" name="Submit" type="button" class="btn btn-primary"
+            onclick="guardarArchivo(txtTraspasosResultado.value)" value="descargar como txt" download="claves.txt">Guardar
+            Archivo</button>
+          <button id="test" type="button" class="btn btn-danger" onclick="limpiarErrores()">Limpiar</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+
+  </div>
+  <!--Fin de cuerpo de paginas-->
+
+  <!--Footer-->
+  <div class="container-fluid">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="https://www.gpoibarra.com/avisos-privacidad/abarrotera-valles/empleados.pdf"
+            class="nav-link px-2 text-muted">Aviso de privacidad</a></li>
+      </ul>
+      <p class="text-center text-muted">2022 Grupo Ibarra - Todos los Derechos Reservados</p>
+    </footer>
+  </div>
+
+
+  <!--Librerias js-->
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+  <!--<script src="js/main RESPALDO.js"></script>-->
+  <script src="js/myscript.js"></script>
+
+</body>
+
+</html>
