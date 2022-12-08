@@ -1,0 +1,107 @@
+ CIA ZONA FECHA       ALMACEN  CONSEC   TPO.TRA       COSTO  REFERENCIA   ALM.DES CONS.DET          	_	
+		
+ COI V14  20221101    V14A    175511    TRASAL      2,944.02 T MAIZ       V07A            		
+ COI V14  20221102    V14A    175519    TRASAL         10.42 INCIDENCIA   V09P            		
+ COI V14  20221102    V14A    175521    TRASAL        303.39 TORTILLA FRI V09P            		
+ COI V14  20221102    V14A    175553    TRASAL        390.55 T-MAIZ       V07A            		
+ COI V14  20221103    V14A    175580    TRASAL      2,411.61 DEVOLUCIONES V05X            		
+ COI V14  20221103    V14A    175591    TRASAL        251.71 T-HARINA     V07A            		
+ COI V14  20221103    V14A    175608    TRASAL      2,493.22 T-MAIZ       V07A            		
+ COI V14  20221104    V14A    175661    TRASAL      2,867.49 T-MAIZ       V07A            		
+ COI V14  20221105    V14A    175676    TRASAL      2,033.46 MANTECA      V09P            		
+ COI V14  20221105    V14A    175677    TRASAL         68.32 INCIDENCIA   V09A            		
+ COI V14  20221105    V14A    175678    TRASAL        260.80 T-HARINA     V07A            		
+ COI V14  20221105    V14A    175719    TRASAL      1,953.88 T MAIZ       V07A            		
+ COI V14  20221106    V14A    175731    TRASAL        135.52 T-MAIZ       V07A            		
+ COI V14  20221106    V14A    175744    TRASAL      2,993.64 T MAIZ       V07A            		
+ COI V14  20221106    V14A    175745    TRASAL        165.61 T HARINA     V07A            		
+ COI V14  20221107    V14A    175759    TRASAL      1,250.60 T-CARNES     V20A            		
+ COI V14  20221107    V14A    175798    TRASAL        452.16 T-HARINA     V07A            		
+ COI V14  20221107    V14A    175804    TRASAL      2,619.55 T-MAIZ       V07A            		
+ COI V14  20221108    V14A    175843    TRASAL        327.20 T-HARINA     V07A            		
+ COI V14  20221108    V14A    175848    TRASAL      2,310.65 T-MAIZ       V07A            		
+ COI V14  20221109    V14A    175873    TRASAL         77.02 TORTILLA     V09P            		
+ COI V14  20221109    V14A    175909    TRASAL        389.78 T-HARINA     V07A            		
+ COI V14  20221109    V14A    175914    TRASAL      2,570.42 T-MAIZ       V07A            		
+ COI V14  20221110    V14A    175941    TRASAL        132.46 INCIDENCIA   V05X            		
+ COI V14  20221110    V14A    175954    TRASAL        330.68 T.HARINA     V07A            		
+ COI V14  20221110    V14A    175963    TRASAL      2,026.81 T.MAIZ       V07A            		
+ COI V14  20221111    V14A    176016    TRASAL        265.07 T.HARINA     V07A            		
+ COI V14  20221111    V14A    176028    TRASAL      2,792.76 T.MAIZ       V07A            		
+ COI V14  20221112    V14A    176057    TRASAL        291.78 T.HARINA     V07A            		
+ COI V14  20221112    V14A    176072    TRASAL      5,326.29 T.MAIZ       V07A            		
+ COI V14  20221112    V14A    176083    TRASAL         30.17 INCIDENCIA   V05X            		
+ COI V14  20221113    V14A    176104    TRASAL      1,576.67 PECHUGA      V07A            		
+ COI V14  20221113    V14A    176119    TRASAL        295.02 13           V07A            		
+ COI V14  20221113    V14A    176122    TRASAL      2,875.57 TORT-MAIZ    V07A            		
+ COI V14  20221114    V14A    176133    TRASAL        319.51 TORTILLA     V09P            		
+ COI V14  20221114    V14A    176157    TRASAL        515.04 INCIDENCIA   V05M            		
+ COI V14  20221114    V14A    176186    TRASAL      2,055.38 T.MAIZ       V07A            		
+ COI V14  20221114    V14A    176187    TRASAL        507.35 T-HARINA     V07A            		
+ COI V14  20221115    V14A    176194    TRASAL      7,359.54 LECHE VAIL   V07A            		
+ COI V14  20221115    V14A    176212    TRASAL        504.49 INCIDECIA    V05X            		
+ COI V14  20221116    V14A    176269    TRASAL         21.25 4            V05X            		
+ COI V14  20221116    V14A    176272    TRASAL      2,889.05 T.MAIZ       V07A            		
+ COI V14  20221116    V14A    176293    TRASAL        366.36 T.AHIRNA     V07A            		
+ COI V14  20221116    V14A    176298    TRASAL      2,069.65 T.MAIZ       V07A            		
+ COI V14  20221117    V14A    176323    TRASAL      2,783.30 DEVOLUCIONES V05X            		
+ COI V14  20221117    V14A    176324    TRASAL      1,672.40 DEVOLUCION   V05X            		
+ COI V14  20221117    V14A    176353    TRASAL      2,423.98 T.MAIZ       V07A            		
+ COI V14  20221117    V14A    176361    TRASAL        229.23 T.HARINA     V07A            		
+ COI V14  20221118    V14A    176385    TRASAL      1,327.83 INCIDENCIA   V05X            		
+ COI V14  20221118    V14A    176408    TRASAL        460.75 T.HARINA     V07A            		
+ COI V14  20221118    V14A    176413    TRASAL      3,441.62 INCIDENCIA   V20A            		
+ COI V14  20221118    V14A    176416    TRASAL      2,421.29 T.MAIZ       V07A            		
+ COI V14  20221118    V14A    176418    TRASAL        754.38 CARNICERIA   V20A            		
+ COI V14  20221119    V14A    176425    TRASAL          5.39 BOLILLO      V09A            		
+ COI V14  20221119    V14A    176434    TRASAL     13,235.13 T.MERCANCIA  V07A            		
+ COI V14  20221119    V14A    176444    TRASAL        938.55 INCIDENCIA   V05X            		
+ COI V14  20221119    V14A    176461    TRASAL        563.37 T.HARINA     V07A            		
+ COI V14  20221119    V14A    176475    TRASAL      3,236.49 T.MAIZ       V07A            		
+ COI V14  20221120    V14A    176493    TRASAL      3,277.23 TORT-MAIZ    V07A            		
+ COI V14  20221120    V14A    176500    TRASAL        753.60 TORT-HARINA  V07A            		
+ COI V14  20221121    V14A    176554    TRASAL        159.54 T. HARINA    V07A            		
+ COI V14  20221121    V14A    176559    TRASAL      3,071.22 T. MAIZ      V07A            		
+ COI V14  20221122    V14A    176570    TRASAL      8,398.67 MERCANCIA    V07A            		
+ COI V14  20221122    V14A    176612    TRASAL      3,288.74 INCIDENCIA   V05X            		
+ COI V14  20221122    V14A    176627    TRASAL        298.29 T. HARINA    V07A            		
+ COI V14  20221122    V14A    176633    TRASAL      3,296.97 T. MAIZ      V07A            		
+ COI V14  20221123    V14A    176655    TRASAL        214.53 T-TORTILLA   V09P            		
+ COI V14  20221123    V14A    176669    TRASAL        136.66 T. HARINA    V07A            		
+ COI V14  20221123    V14A    176675    TRASAL      1,654.21 T. MAIZ      V07A            		
+ COI V14  20221124    V14A    176686    TRASAL        155.33 INCIDENCIA   V09A            		
+ COI V14  20221124    V14A    176687    TRASAL      4,069.68 NUTRI        V07A            		
+ COI V14  20221124    V14A    176697    TRASAL        159.58 INCIDENCIA   V05X            		
+ COI V14  20221124    V14A    176708    TRASAL        175.20 DEVOLUCION   V07A            		
+ COI V14  20221124    V14A    176714    TRASAL        456.97 T.HARINA     V07A            		
+ COI V14  20221124    V14A    176724    TRASAL      2,827.98 T. MAIZ      V07A            		
+ COI V14  20221125    V14A    176738    TRASAL    244,389.54 R. CARNE     V10A            		
+ COI V14  20221125    V14A    176770    TRASAL        572.67 T. HARINA    V07A            		
+ COI V14  20221125    V14A    176775    TRASAL      2,038.23 T. MAIZ      V07A            		
+ COI V14  20221126    V14A    176791    TRASAL     13,443.83 TRSPASO      V07A            		
+ COI V14  20221126    V14A    176792    TRASAL     12,878.47 SOFT WINER   V10A            		
+ COI V14  20221126    V14A    176793    TRASAL      7,231.96 SOFTWINER    V12A            		
+ COI V14  20221126    V14A    176794    TRASAL      7,231.96 SOFTWINER    V11A            		
+ COI V14  20221126    V14A    176795    TRASAL        718.37 VELADORA     V07A            		
+ COI V14  20221126    V14A    176823    TRASAL      2,452.71 T. MAIZ      V07A            		
+ COI V14  20221127    V14A    176831    TRASAL      4,687.07 AZUCAR       V07A            		
+ COI V14  20221127    V14A    176838    TRASAL      2,973.99 T-MAIZ       V07A            		
+ COI V14  20221128    V14A    176860    TRASAL     15,495.58 TRASAL V07   V07A            		
+ COI V14  20221128    V14A    176861    TRASAL        112.99 INCIDENCIA   V07A            		
+ COI V14  20221128    V14A    176862    TRASAL        140.59 TRASAL       V09P            		
+ COI V14  20221128    V14A    176882    TRASAL        745.87 INCIDENCIA   V05X            		
+ COI V14  20221128    V14A    176901    TRASAL      2,830.73 TORTILLA     V07A            		
+ COI V14  20221129    V14A    176915    TRASAL      7,839.61 CACAO        V11A            		
+ COI V14  20221129    V14A    176916    TRASAL      7,499.32 AZUCAR       V25A            		
+ COI V14  20221129    V14A    176933    TRASAL        557.12 MEZCAL       V11A            		
+ COI V14  20221129    V14A    176936    TRASAL      2,789.28 TORTILLA     V07A            		
+ COI V14  20221130    V14A    176953    TRASAL     14,461.25 NUTRI-AZUCA  V07A            		
+ COI V14  20221130    V14A    176954    TRASAL      9,374.15 AZUCAR       V07A            		
+ COI V14  20221130    V14A    176956    TRASAL      2,812.40 A            V09P            		
+ COI V14  20221130    V14A    176996    TRASAL      2,866.82 T.MAIZ       V07A            		
+ COI V14  20221130    V14A    177004    TRASAL        258.99 T. MAIZ      V07A            		
+                                               -------------                              		
+                                        TOTAL     494,123.50                              		
+		
+		
+                    TOTAL GENERAL :              -494,123.50                              		

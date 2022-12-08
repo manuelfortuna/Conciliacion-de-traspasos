@@ -1,0 +1,84 @@
+ CIA ZONA FECHA       ALMACEN  CONSEC   TPO.TRA       COSTO  REFERENCIA   ALM.DES CONS.DET          	_	
+		
+ COI V10  20221101    V10A    280754    TRASAL     11,243.99 PIERNA       V07A            		
+ COI V10  20221101    V10A    280755    TRASAL     10,764.89 PIERNA       V06A            		
+ COI V10  20221101    V10A    280756    TRASAL     27,803.75 PIERNA       V01A            		
+ COI V10  20221101    V10A    280757    TRASAL     36,747.19 PIERNA       V13A            		
+ COI V10  20221101    V10A    280763    TRASAL        331.11 PRODUCCION   V09P            		
+ COI V10  20221102    V10A    280797    TRASAL        260.95 DAÑADA       V05M            		
+ COI V10  20221103    V10A    280833    TRASAL     26,192.50 PIERNA       V20A            		
+ COI V10  20221104    V10A    280940    TRASAL     19,833.73 PIERNA       V12A            		
+ COI V10  20221105    V10A    280982    TRASAL     14,428.09 PIERNA       V11A            		
+ COI V10  20221108    V10A    281080    TRASAL      1,082.75 PARA TOTOPO  V09P            		
+ COI V10  20221108    V10A    281091    TRASAL     19,077.03 PIERNA       V01A            		
+ COI V10  20221108    V10A    281103    TRASAL     36,523.95 PIERNA       V14A            		
+ COI V10  20221108    V10A    281104    TRASAL     35,931.78 PIERNA       V07A            		
+ COI V10  20221108    V10A    281106    TRASAL     18,952.36 PIERNA       V11A            		
+ COI V10  20221108    V10A    281110    TRASAL        435.74 DANADO       V05M            		
+ COI V10  20221108    V10A    281111    TRASAL        316.63 INCIDENCIA   V05M            		
+ COI V10  20221108    V10A    281114    TRASAL         86.30 CUERO        V12A            		
+ COI V10  20221109    V10A    281137    TRASAL        405.15 PARA PRODUCC V09P            		
+ COI V10  20221109    V10A    281138    TRASAL      9,699.42 PIERNA       V12A            		
+ COI V10  20221110    V10A    281212    TRASAL        340.73 ROLLOS       V12A            		
+ COI V10  20221111    V10A    281270    TRASAL        890.69 TOCINO       V20A            		
+ COI V10  20221111    V10A    281285    TRASAL        396.88 PARA TOTOPO  V09P            		
+ COI V10  20221112    V10A    281321    TRASAL     14,054.86 PIERNA       V11A            		
+ COI V10  20221112    V10A    281356    TRASAL        125.55 CAMBIADO     V05M            		
+ COI V10  20221114    V10A    281420    TRASAL        140.67 INCIDENCIA   V05M            		
+ COI V10  20221115    V10A    281456    TRASAL     16,315.72 PIERNA       V01A            		
+ COI V10  20221115    V10A    281478    TRASAL      9,731.27 PIERNA       V07A            		
+ COI V10  20221115    V10A    281479    TRASAL     49,192.35 PIERNA       V14A            		
+ COI V10  20221115    V10A    281480    TRASAL      8,303.62 PIERNA       V11A            		
+ COI V10  20221116    V10A    281512    TRASAL        352.31 PARA PRODUCC V09P            		
+ COI V10  20221116    V10A    281513    TRASAL     26,558.75 PÍERNA       V12A            		
+ COI V10  20221116    V10A    281514    TRASAL     17,357.06 PIERNA       V25A            		
+ COI V10  20221116    V10A    281515    TRASAL        449.00 PARA TOTOPO  V09P            		
+ COI V10  20221116    V10A    281549    TRASAL         74.45 MATERIAL     V09P            		
+ COI V10  20221118    V10A    281637    TRASAL        868.78 INCIDENCIA   V20A            		
+ COI V10  20221118    V10A    281641    TRASAL        321.85 INCIDENCIA   V05M            		
+ COI V10  20221118    V10A    281659    TRASAL        179.34 FALTANTE     V20A            		
+ COI V10  20221119    V10A    281672    TRASAL     18,370.17 PIERNA       V11A            		
+ COI V10  20221121    V10A    281777    TRASAL        136.55 INCIDENCIA   V05X            		
+ COI V10  20221121    V10A    281783    TRASAL        375.26 PARA TOTOPO  V09P            		
+ COI V10  20221122    V10A    281814    TRASAL        412.67 PRODUCCION   V09P            		
+ COI V10  20221122    V10A    281816    TRASAL     37,004.34 PIERNA       V06A            		
+ COI V10  20221122    V10A    281819    TRASAL     51,672.09 PIERNA       V01A            		
+ COI V10  20221122    V10A    281845    TRASAL      1,674.47 INCIDENCIA   V05M            		
+ COI V10  20221122    V10A    281857    TRASAL     27,158.90 PIERNA       V07A            		
+ COI V10  20221122    V10A    281858    TRASAL      9,330.22 PIERNA       V11A            		
+ COI V10  20221122    V10A    281859    TRASAL     34,377.09 PIERNA       V15A            		
+ COI V10  20221122    V10A    281861    TRASAL     36,392.60 PIERNA       V20A            		
+ COI V10  20221122    V10A    281862    TRASAL     25,324.36 PIERNA       V25A            		
+ COI V10  20221123    V10A    281899    TRASAL      1,350.64 INCIDENCIA   V05M            		
+ COI V10  20221123    V10A    281902    TRASAL        137.43 INICENCIA    V05M            		
+ COI V10  20221124    V10A    281950    TRASAL         44.70 INMCIDENCIA  V05X            		
+ COI V10  20221124    V10A    281951    TRASAL        451.42 INCIDENCIA   V05M            		
+ COI V10  20221124    V10A    281952    TRASAL        270.13 INCIDENCIA   V05X            		
+ COI V10  20221124    V10A    281958    TRASAL     55,264.08 PIERNA       V13A            		
+ COI V10  20221124    V10A    281959    TRASAL    210,098.78 PIERNA       V01A            		
+ COI V10  20221125    V10A    281990    TRASAL        227.72 PRODUCCION   V09P            		
+ COI V10  20221125    V10A    281992    TRASAL      2,049.49 PRODUCCION   V09P            		
+ COI V10  20221125    V10A    282022    TRASAL        519.27 INCIDENCIA   V05X            		
+ COI V10  20221125    V10A    282023    TRASAL         12.16 INCIDENCIA   V05X            		
+ COI V10  20221125    V10A    282024    TRASAL     38,384.62 PIERNA       V15A            		
+ COI V10  20221125    V10A    282025    TRASAL     10,110.12 PIERNA       V06A            		
+ COI V10  20221125    V10A    282026    TRASAL     91,541.86 PIERNA       V20A            		
+ COI V10  20221125    V10A    282027    TRASAL      8,542.74 PIERNA       V01A            		
+ COI V10  20221126    V10A    282081    TRASAL     18,806.48 PIERNA       V11A            		
+ COI V10  20221126    V10A    282083    TRASAL        344.01 INCIDENCIA   V05M            		
+ COI V10  20221126    V10A    282115    TRASAL      4,732.94 CARNE        V14A            		
+ COI V10  20221128    V10A    282149    TRASAL        438.59 PRODDUCION   V09P            		
+ COI V10  20221128    V10A    282150    TRASAL         52.82 PRODUCCION   V09P            		
+ COI V10  20221128    V10A    282167    TRASAL        214.32 PARA TOTOPO  V09P            		
+ COI V10  20221128    V10A    282171    TRASAL        555.18 INCIDENCIA   V05X            		
+ COI V10  20221128    V10A    282172    TRASAL         32.13 INCIDENCIA   V05M            		
+ COI V10  20221128    V10A    282178    TRASAL      2,453.51 ARRACHERA    V12A            		
+ COI V10  20221129    V10A    282239    TRASAL     12,043.77 CARNES       V14A            		
+ COI V10  20221129    V10A    282240    TRASAL        247.61 MEZCAL       V11A            		
+ COI V10  20221129    V10A    282257    TRASAL      9,022.29 CARNE        V14A            		
+ COI V10  20221130    V10A    282266    TRASAL         11.34 PRODUCCION   V09P            		
+                                               -------------                              		
+                                        TOTAL   1,125,960.03                              		
+		
+		
+                    TOTAL GENERAL :            -1,125,960.03                              		
