@@ -108,6 +108,7 @@ function cargaArchivo() {
         var fileOrigen = new FileReader();
         var bandera = "origen";
         fileOrigen.onload = () => {
+
             //Limpia los renglones obtenidos del archivo.
             //limpiarRenglones(fileOrigen.result);
             //Imprime en pantalla txtTraspasosOrigen
@@ -124,6 +125,9 @@ function cargaArchivo() {
         var fileDestino = new FileReader();
         var bandera = "destino";
         fileDestino.onload = () => {
+
+            //Limpia los renglones obtenidos del archivo.
+            //limpiarRenglones(fileOrigen.result);
             //Imprime en pantalla txtTraspasosDestino
             inicializarVariablesTraspaso(bandera);
             document.getElementById('txtTraspasosDestino').value = limpiarRenglones(fileDestino.result, bandera);
@@ -447,13 +451,17 @@ function obtenerSegmentoArreglo(cadena, segmento, splitBuscado) {
 }
 
 //Compara el registro de cada renglon contra vacios, espacios y encuentra el limite del documento.
-function validador(clavesEntrada) {
+function validador(datosEntrada) {
     var valida = true;
-    if (clavesEntrada == []) {
+    if (datosEntrada == []) {
         valida = false;
     }
 
-    if (clavesEntrada == null || clavesEntrada == " ") {
+    if (datosEntrada == null || datosEntrada == " ") {
+        valida = false;
+    }
+
+    if (datosEntrada.length == 0) {
         valida = false;
     }
 
@@ -627,36 +635,6 @@ function validaCampoReferencia(arregloRenglon) {
     let tamanoArreglo = 0;
     let segmento = "";
 
-    //Se convierte en arreglo la cadena recibida
-    arregloRenglonArray = construirArreglo(arregloRenglon, "|");
-
-    //Limpia los primeros datos
-
-    for (var x = 0; x <= 6; x++) {
-        arregloRenglonArray.shift();
-    }
-
-
-    //Limpia los ultimos datos
-    tamanoArreglo = arregloRenglonArray.length - 1;
-
-    for (var y = 0; y <= 2; y++) {
-       
-        segmento = arregloRenglonArray.pop();
-
-        if (y == 1) {
-            cons_det = segmento;
-        }
-
-        if(y == 2){
-            alm_des = segmento;
-        } 
-    }
-
-    //arreglo restante es la referencia
-
-    arregloRenglonCadena = arregloRenglonArray.toString();
-
     cia = obtenerSegmentoArreglo(arregloRenglon, 1, "|");
     zona = obtenerSegmentoArreglo(arregloRenglon, 2, "|");
     fecha = obtenerSegmentoArreglo(arregloRenglon, 3, "|");
@@ -664,37 +642,16 @@ function validaCampoReferencia(arregloRenglon) {
     consec = obtenerSegmentoArreglo(arregloRenglon, 5, "|");
     tpo_tra = obtenerSegmentoArreglo(arregloRenglon, 6, "|");
     costo = obtenerSegmentoArreglo(arregloRenglon, 7, "|");
-
-    referencia = arregloRenglonCadena.replace(/[,]+/g, ' ');
-
-    
-    primeraParteRenglon = cia + "|" + zona + "|" + fecha + "|" + alm + "|" + consec + "|" + tpo_tra + "|" + costo + "|";
-
-    segundaParteRenglon = referencia + "|" + alm_des + "|" + cons_det + "|";
-    arregloRenglon = primeraParteRenglon + segundaParteRenglon;
-
-
-    /*
-    let primeraParteRenglon = "";
-    let segundaParteRenglon = "";
-
-    cia = obtenerSegmentoArreglo(arregloRenglon, 1, "|");
-    zona = obtenerSegmentoArreglo(arregloRenglon, 2, "|");
-    fecha = obtenerSegmentoArreglo(arregloRenglon, 3, "|");
-    alm = obtenerSegmentoArreglo(arregloRenglon, 4, "|");
-    consec = obtenerSegmentoArreglo(arregloRenglon, 5, "|");
-    tpo_tra = obtenerSegmentoArreglo(arregloRenglon, 6, "|");
-    costo = obtenerSegmentoArreglo(arregloRenglon, 7, "|");
-
 
     primeraParteRenglon = cia + "|" + zona + "|" + fecha + "|" + alm + "|" + consec + "|" + tpo_tra + "|" + costo + "|";
 
     //Obtiene el consecutivo de destino
     cons_det = obtenerSegmentoArreglo(arregloRenglon, 10, "|");
-    //Debe de ser vacio ya que no hay dato en ese segmento, en caso contrario la referencia se ha divido en dos segmentos.
+    //Debe de ser vacio ya que no hay dato en ese segmento, en caso contrario la referencia se ha divido en dos O MAS segmentos.
     if (cons_det == "") {
         cons_det = " ";
     }
+
     //Valido que alm_det tenga un almacen valido
     alm_des = obtenerSegmentoArreglo(arregloRenglon, 9, "|");
 
@@ -708,30 +665,37 @@ function validaCampoReferencia(arregloRenglon) {
         segundaParteRenglon = referencia + "|" + alm_des + "|" + cons_det + "|";
 
     } else {
-       
-        
-       
-       
-       
-        //obtenemos el segmento de referencia y el segmento de almacen destino alm_des para concatenarlos.
-        referencia = obtenerSegmentoArreglo(arregloRenglon, 8, "|");
-        alm_des = obtenerSegmentoArreglo(arregloRenglon, 9, "|");
-        cons_det = obtenerSegmentoArreglo(arregloRenglon, 11, "|");
+        //Se convierte en arreglo la cadena recibida
+        arregloRenglonArray = construirArreglo(arregloRenglon, "|");
 
-        //Se crea una nueva referencia con la union de los dos textos
-        referencia = referencia + "-" + alm_des;
+        //Limpia los primeros datos
 
-        //Se crea un nuevo alm dest porque debe llevar el almacen
-        // alm_des = cons_det;
-        alm_des = obtenerSegmentoArreglo(arregloRenglon, 10, "|");
-        //Se crea un nuevo cons_dest porque no debe de llevar nada.        
+        for (var x = 0; x <= 6; x++) {
+            arregloRenglonArray.shift();
+        }
 
+        //Limpia los ultimos datos
+        tamanoArreglo = arregloRenglonArray.length - 1;
+
+        for (var y = 0; y <= 2; y++) {
+
+            segmento = arregloRenglonArray.pop();
+
+            if (y == 1) {
+                cons_det = segmento;
+            }
+
+            if (y == 2) {
+                alm_des = segmento;
+            }
+        }
+        //arreglo restante es la referencia
+        arregloRenglonCadena = arregloRenglonArray.toString();
+        referencia = arregloRenglonCadena.replace(/[,]+/g, ' ');
         segundaParteRenglon = referencia + "|" + alm_des + "|" + cons_det + "|";
-
     }
 
-
-    arregloRenglon = primeraParteRenglon + segundaParteRenglon;*/
+    arregloRenglon = primeraParteRenglon + segundaParteRenglon;
 
     return arregloRenglon;
 }
