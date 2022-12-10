@@ -24,6 +24,7 @@ const almacenValido = /p{0x0056}+[0-9]+[A-Z]/g;
 const numero = /\p{Nd}/gu;
 const ARCHIVO_NO_COINCIDE = "¡El archivo no coincide con la sucursal seleccionada!";
 
+var ExpRegSoloNumeros = "^[0-9]+$";
 
 var contadorTraspasosOrigen = 0;
 var contadorTraspasosDestino = 0;
@@ -330,7 +331,8 @@ function salvar(t) {
 
 //FUNCIONES DE LIMPIEZA, MANIPULACION O SEGMENTACION DE RENGLON.
 
-/**Recibe un arreglo segmentado por "|" leído de un archivo y realiza la eliminacion de indices que recibe por medio de una bandera**/
+/**Recibe un arreglo segmentado por "|" leído de un archivo y realiza la eliminacion de indices de 
+ * la ubicacion que recibe por medio de una bandera**/
 function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
     let arregloSegmentadoArchivo = [];
     let tamanoArreglo = 0;
@@ -343,15 +345,18 @@ function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
 
     sucursalAlmacen = obtenerSegmentoArreglo(quitarEspacios(arregloSegmentadoArchivo[4]), 4, "|");
 
-    //LIMPIA PARTE INFERIOR DEL ARCHIVO
+    //LIMPIA PARTE INFERIOR DEL ARCHIVO DE ORIGEN
     if (banderaUbicacion == "origen") {
         //valida si se trata de un archivo de V05
         if (indiceOrigen == "V05M" || indiceOrigen == "V05R" || indiceOrigen == "V05X") {
 
             if (sucursalAlmacen == indiceOrigen) {
+                //Borra los ultimos elementos de un ARRAY
                 for (var i = 0; i <= 1; i++) {
                     arregloSegmentadoArchivo.pop();
                 }
+                //Borra el priemer renglon de un ARRAY
+                arregloSegmentadoArchivo.shift();
             } else {
                 //alert("El archivo no coincide con la sucursal seleccioanda");
                 arregloSegmentadoArchivo = [];
@@ -363,9 +368,17 @@ function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
         } else {
             //Una vez dentro de esta funcion indica que el archivo no pertenece a V05 Y PERTENECE A UNA ATS
             if (sucursalAlmacen == indiceOrigen) {
+
+                //Borra el ultimo registro de un ARRAY
                 for (var x = 0; x <= 5; x++) {
                     arregloSegmentadoArchivo.pop();
                 }
+
+                //Borra el priemer renglon de un ARRAY
+                for (var z = 0; z <= 1; z++) {
+                    arregloSegmentadoArchivo.shift();
+                }
+
             } else {
                 //alert("El archivo no coincide con la sucursal seleccioanda");
                 arregloSegmentadoArchivo = [];
@@ -377,6 +390,7 @@ function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
 
     }
 
+    //LIMPIA LA PARTE INFERIOR DEL ARCHIVO DE DESTINO
     if (banderaUbicacion == "destino") {
         //valida si se trata de un archivo de V05
         if (indiceDestino == "V05M" || indiceDestino == "V05R" || indiceDestino == "V05X") {
@@ -385,6 +399,9 @@ function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
                 for (var i = 0; i <= 1; i++) {
                     arregloSegmentadoArchivo.pop();
                 }
+                //Borra el priemer renglon de un ARRAY
+                arregloSegmentadoArchivo.shift();
+
             } else {
                 //alert("El archivo no coincide con la sucursal seleccioanda");
                 arregloSegmentadoArchivo = [];
@@ -399,6 +416,12 @@ function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
                 for (var x = 0; x <= 5; x++) {
                     arregloSegmentadoArchivo.pop();
                 }
+
+                //Borra el priemer renglon de un ARRAY
+                for (var z = 0; z <= 1; z++) {
+                    arregloSegmentadoArchivo.shift();
+                }
+
             } else {
                 //alert("El archivo no coincide con la sucursal seleccioanda");
 
@@ -409,7 +432,6 @@ function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
 
         }
     }
-
 
     return arregloSegmentadoArchivo;
 }
@@ -536,31 +558,62 @@ function limpiarRenglones(registrosArchivo, banderaUbicacion) {
 
 }
 
+//Recibe una cadena y un parametro slice, el resultado lo retorna como arreglo
+function construirArreglo(cadenaEntrada, caracterSplit) {
+    let arregloContruido = [];
+
+    arregloContruido = cadenaEntrada.split(caracterSplit);
+
+    return arregloContruido;
+}
+
 //Recibe un renglon de un arreglo y lo limpia de espacios continuos dejando solo uno, despues 
 //los cambia por "|"
 function quitarEspacios(renglonArchivo) {
     let renglonArmado = "";
+    let renglonArmadoArray = [];
+
+    let validaConsDestino = true;
 
     //Se ignoran los primeros 2 indices ya que son informacion basura
     renglonArmado = renglonArchivo.toString();
     renglonArmado = renglonArmado.replace(/\s+/g, '|');
-    renglonArmado = renglonArmado.slice(1);
+    renglonArmado = renglonArmado.replace(/[,]+/g, '');
+
+    if (indiceOrigen == "V05M" || indiceOrigen == "V05R" || indiceOrigen == "V05X" || indiceDestino == "V05M" || indiceDestino == "V05R" || indiceOrigen == "V05X") {
+        renglonArmadoArray = construirArreglo(renglonArmado, "|");
+
+        for (var x = 0; x <= 1; x++) {
+            renglonArmadoArray.pop();
+        }
+        renglonArmado = renglonArmadoArray.toString();
+        renglonArmado = renglonArmado.replace(/[,]+/g, '|') + "|";
+
+    } else {
+        renglonArmado = renglonArmado.slice(1);
+
+        validaConsDestino = validaNumero(obtenerSegmentoArreglo(renglonArmado, 10, "|"));
+
+        if (validaConsDestino == false) {
+            renglonArmado = renglonArmado + "|";
+
+        }
+    }
+
     return renglonArmado;
 
 }
 
-//Recibe un arreglo al cual se valida si se trata de un numero
+//Recibe una cadena al cual se valida si se trata de un numero
 function validaNumero(renglonArchivo) {
-    var valida = true;
+    let valida = false;
 
-    for (i = 0; i <= renglonArchivo.length - 1; i++) {
-        console.log(isNaN(renglonArchivo[i]));
-        if (isNaN(renglonArchivo[i]) == true) {
-            console.log("N soy numero");
 
-            valida = false;
+    if (renglonArchivo != "") {
+
+        if (renglonArchivo.match(ExpRegSoloNumeros) != null) {
+            valida = true;
         }
-        return (valida);
 
     }
     return (valida);
@@ -569,6 +622,59 @@ function validaNumero(renglonArchivo) {
 //Reconstruye el renglon buscando corregir el error del segmento referencia donde 
 //durante el split segementa la referencia en dos partes
 function validaCampoReferencia(arregloRenglon) {
+    let arregloRenglonCadena = "";
+    let arregloRenglonArray = [];
+    let tamanoArreglo = 0;
+    let segmento = "";
+
+    //Se convierte en arreglo la cadena recibida
+    arregloRenglonArray = construirArreglo(arregloRenglon, "|");
+
+    //Limpia los primeros datos
+
+    for (var x = 0; x <= 6; x++) {
+        arregloRenglonArray.shift();
+    }
+
+
+    //Limpia los ultimos datos
+    tamanoArreglo = arregloRenglonArray.length - 1;
+
+    for (var y = 0; y <= 2; y++) {
+       
+        segmento = arregloRenglonArray.pop();
+
+        if (y == 1) {
+            cons_det = segmento;
+        }
+
+        if(y == 2){
+            alm_des = segmento;
+        } 
+    }
+
+    //arreglo restante es la referencia
+
+    arregloRenglonCadena = arregloRenglonArray.toString();
+
+    cia = obtenerSegmentoArreglo(arregloRenglon, 1, "|");
+    zona = obtenerSegmentoArreglo(arregloRenglon, 2, "|");
+    fecha = obtenerSegmentoArreglo(arregloRenglon, 3, "|");
+    alm = obtenerSegmentoArreglo(arregloRenglon, 4, "|");
+    consec = obtenerSegmentoArreglo(arregloRenglon, 5, "|");
+    tpo_tra = obtenerSegmentoArreglo(arregloRenglon, 6, "|");
+    costo = obtenerSegmentoArreglo(arregloRenglon, 7, "|");
+
+    referencia = arregloRenglonCadena.replace(/[,]+/g, ' ');
+
+    
+    primeraParteRenglon = cia + "|" + zona + "|" + fecha + "|" + alm + "|" + consec + "|" + tpo_tra + "|" + costo + "|";
+
+    segundaParteRenglon = referencia + "|" + alm_des + "|" + cons_det + "|";
+    arregloRenglon = primeraParteRenglon + segundaParteRenglon;
+
+
+    /*
     let primeraParteRenglon = "";
     let segundaParteRenglon = "";
 
@@ -582,8 +688,6 @@ function validaCampoReferencia(arregloRenglon) {
 
 
     primeraParteRenglon = cia + "|" + zona + "|" + fecha + "|" + alm + "|" + consec + "|" + tpo_tra + "|" + costo + "|";
-    //Valida que el movimiento sea TRASAL ya que es el movimiento donde no hay dato en consecutivo de destino cons_det.
-    //if (tpo_tra == "TRASAL") {
 
     //Obtiene el consecutivo de destino
     cons_det = obtenerSegmentoArreglo(arregloRenglon, 10, "|");
@@ -604,6 +708,11 @@ function validaCampoReferencia(arregloRenglon) {
         segundaParteRenglon = referencia + "|" + alm_des + "|" + cons_det + "|";
 
     } else {
+       
+        
+       
+       
+       
         //obtenemos el segmento de referencia y el segmento de almacen destino alm_des para concatenarlos.
         referencia = obtenerSegmentoArreglo(arregloRenglon, 8, "|");
         alm_des = obtenerSegmentoArreglo(arregloRenglon, 9, "|");
@@ -622,7 +731,7 @@ function validaCampoReferencia(arregloRenglon) {
     }
 
 
-    arregloRenglon = primeraParteRenglon + segundaParteRenglon;
+    arregloRenglon = primeraParteRenglon + segundaParteRenglon;*/
 
     return arregloRenglon;
 }
