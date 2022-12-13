@@ -352,9 +352,10 @@ function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
     //LIMPIA PARTE INFERIOR DEL ARCHIVO DE ORIGEN
     if (banderaUbicacion == "origen") {
         //valida si se trata de un archivo de V05
-        if (indiceOrigen == "V05M" || indiceOrigen == "V05R" || indiceOrigen == "V05X") {
-
-            if (sucursalAlmacen == indiceOrigen) {
+        // if (indiceOrigen == "V05M" || indiceOrigen == "V05R" || indiceOrigen == "V05X") {
+        if (indiceOrigen == "V05") {
+            //if (sucursalAlmacen == indiceOrigen) {
+            if (sucursalAlmacen == "V05R" || sucursalAlmacen == "V05X" || sucursalAlmacen == "V05M" || sucursalAlmacen == "V05I") {
                 //Borra los ultimos elementos de un ARRAY
                 for (var i = 0; i <= 1; i++) {
                     arregloSegmentadoArchivo.pop();
@@ -397,9 +398,11 @@ function limpiarArregloDeArchivo(arregloDeArchivo, banderaUbicacion) {
     //LIMPIA LA PARTE INFERIOR DEL ARCHIVO DE DESTINO
     if (banderaUbicacion == "destino") {
         //valida si se trata de un archivo de V05
-        if (indiceDestino == "V05M" || indiceDestino == "V05R" || indiceDestino == "V05X") {
+        //if (indiceDestino == "V05M" || indiceDestino == "V05R" || indiceDestino == "V05X") {
+        if (indiceDestino == "V05") {
 
-            if (sucursalAlmacen == indiceDestino) {
+            //    if (sucursalAlmacen == indiceDestino) {
+            if (sucursalAlmacen == "V05R" || sucursalAlmacen == "V05X" || sucursalAlmacen == "V05M" || sucursalAlmacen == "V05I") {
                 for (var i = 0; i <= 1; i++) {
                     arregloSegmentadoArchivo.pop();
                 }
@@ -513,11 +516,15 @@ function limpiarRenglones(registrosArchivo, banderaUbicacion) {
 
                         indiceOrigen = sucursalOrigenSelect.options[sucursalOrigenSelect.selectedIndex].value;
 
+                        //valida ats
                         if (indiceOrigen == sucursalOrigen) {
                             //Guarda el renglon en el arreglo origen
                             RENGLONES_ARMADOS_ORIGEN.push(renglonesArmados);
 
+                        } else if (indiceOrigen == "V05") {
+                            RENGLONES_ARMADOS_ORIGEN.push(renglonesArmados);
                         } else {
+
                             almacenInvalido = true;
 
                         }
@@ -529,10 +536,15 @@ function limpiarRenglones(registrosArchivo, banderaUbicacion) {
                         sucursalDestino = obtenerSegmentoArreglo(renglonesArmados, 4, "|");
                         indiceDestino = sucursalDestinoSelect.options[sucursalDestinoSelect.selectedIndex].value;
 
+                        //valida cedis
+
+
                         if (indiceDestino == sucursalDestino) {
                             //Guarda el renglon en el arreglo destino
                             RENGLONES_ARMADOS_DESTINO.push(renglonesArmados);
 
+                        } else if (indiceDestino == "V05") {
+                            RENGLONES_ARMADOS_DESTINO.push(renglonesArmados);
                         } else {
 
                             almacenInvalido = true;
@@ -588,7 +600,8 @@ function quitarEspacios(renglonArchivo) {
     renglonArmado = renglonArmado.replace(/\s+/g, '|');
     renglonArmado = renglonArmado.replace(/[,]+/g, '');
 
-    if (indiceOrigen == "V05M" || indiceOrigen == "V05R" || indiceOrigen == "V05X" || indiceDestino == "V05M" || indiceDestino == "V05R" || indiceOrigen == "V05X") {
+    //if (indiceOrigen == "V05M" || indiceOrigen == "V05R" || indiceOrigen == "V05X" || indiceDestino == "V05M" || indiceDestino == "V05R" || indiceOrigen == "V05X") {
+    if (indiceOrigen == "V05") {
         renglonArmadoArray = construirArreglo(renglonArmado, "|");
 
         for (var x = 0; x <= 1; x++) {
@@ -657,7 +670,7 @@ function validaCampoReferencia(arregloRenglon) {
 
     if (alm_des == "V01A" || alm_des == "V06A" || alm_des == "V07A" || alm_des == "V09A" || alm_des == "V10A" || alm_des == "V09P" ||
         alm_des == "V11A" || alm_des == "V12A" || alm_des == "V13A" || alm_des == "V14A" || alm_des == "V15A" ||
-        alm_des == "V20A" || alm_des == "V25A" || alm_des == "V05M" || alm_des == "V05X" || alm_des == "V05X" || alm_des == "V05R") {
+        alm_des == "V20A" || alm_des == "V25A" || alm_des == "V05M" || alm_des == "V05X" || alm_des == "V05I" || alm_des == "V05R") {
 
         referencia = obtenerSegmentoArreglo(arregloRenglon, 8, "|");
         cons_det = obtenerSegmentoArreglo(arregloRenglon, 10, "|");
