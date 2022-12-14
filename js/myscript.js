@@ -13,6 +13,8 @@ var alm_des = "";
 var cons_det = "";
 var mensaje = "";
 
+var lecturas = 0;
+
 var sucursalOrigenSelect = document.getElementById("sucOrigen");
 var indiceOrigen = "";
 
@@ -23,6 +25,7 @@ var indiceDestino = "";
 const almacenValido = /p{0x0056}+[0-9]+[A-Z]/g;
 const numero = /\p{Nd}/gu;
 const ARCHIVO_NO_COINCIDE = "¡El archivo no coincide con la sucursal seleccionada!";
+const ERROR_DE_ARCHIVO = "¡Error en el archivo, favor de validar!";
 
 var ExpRegSoloNumeros = "^[0-9]+$";
 
@@ -44,9 +47,13 @@ function limpiarErrores() {
     document.getElementById("txtTraspasosDestino").value = "";
     document.getElementById("txtTraspasosOrigen").value = "";
     document.getElementById("inputFileOrigen").value = "";
+    document.getElementById('inputFileOrigen').innerHTML = '';
     document.getElementById("inputFileDestino").value = "";
+    document.getElementById('inputFileDestino').innerHTML = '';
     document.getElementById("txtTraspasosResultado").value = "";
     mensaje = "";
+    document.getElementById("txtDestino").textContent = "Estatus del archivo";
+    document.getElementById("txtOrigen").textContent = "Estatus del archivo";
     inicializarVariablesTraspaso("origen");
     inicializarVariablesTraspaso("destino");
 }
@@ -103,12 +110,19 @@ function limpiarArreglo(arregloLleno) {
 
 //FUNCIONES DE LECTURA DE ARCHIVO.
 /*Funciones de guardado de archivo y lectura de archivo*/
+/*function preparaArchivoCarga() {
+    var bandera = "origen";
+    inicializarVariablesTraspaso(bandera);
+    cargaArchivo(bandera);
+    muestraTipoTraspaso(bandera);
+}*/
+
+
 function cargaArchivo() {
     document.getElementById('inputFileOrigen').addEventListener('change', function () {
         var fileOrigen = new FileReader();
         var bandera = "origen";
         fileOrigen.onload = () => {
-
             //Limpia los renglones obtenidos del archivo.
             //limpiarRenglones(fileOrigen.result);
             //Imprime en pantalla txtTraspasosOrigen
@@ -137,8 +151,45 @@ function cargaArchivo() {
         fileDestino.readAsText(this.files[0]);
     });
 
-
 }
+
+//comienza funcion de prueba
+/*function leerArchivo(e) {
+
+    var archivo = e.target.files[0];
+    if (!archivo) {
+        return;
+    }
+    var lector = new FileReader();
+    lector.onload = function (e) {
+        var contenido = e.target.result;
+        mostrarContenido(contenido);
+    };
+    lector.readAsText(archivo);
+    var lector = new FileReader();
+    lector.onload = function (e) {
+        var contenido = e.target.result;
+        mostrarContenido(contenido);
+    };
+    lector.readAsText(archivo);
+}*/
+
+/*document.getElementById('inputFileOrigen')
+    .addEventListener('change', leerArchivo, false);*/
+
+/*function mostrarContenido(contenido) {
+    var bandera = "origen";
+    inicializarVariablesTraspaso(bandera);
+    document.getElementById('txtTraspasosOrigen').value = limpiarRenglones(contenido, bandera);
+    muestraTipoTraspaso(bandera);
+    //var elemento = document.getElementById('contenido-archivo');
+    //elemento.innerHTML = contenido;
+}*/
+
+//termina funcion de prueba
+
+
+
 
 
 
@@ -333,6 +384,9 @@ function salvar(t) {
 
 
 
+
+
+
 //FUNCIONES DE LIMPIEZA, MANIPULACION O SEGMENTACION DE RENGLON.
 
 /**Recibe un arreglo segmentado por "|" leído de un archivo y realiza la eliminacion de indices de 
@@ -456,20 +510,41 @@ function obtenerSegmentoArreglo(cadena, segmento, splitBuscado) {
 //Compara el registro de cada renglon contra vacios, espacios y encuentra el limite del documento.
 function validador(datosEntrada) {
     var valida = true;
+
+    //valida campos vacio
     if (datosEntrada == []) {
         valida = false;
     }
 
+    //valida 
     if (datosEntrada == null || datosEntrada == " ") {
         valida = false;
     }
 
-    if (datosEntrada.length == 0) {
+    if (datosEntrada == 0) {
         valida = false;
     }
 
     return (valida);
 
+}
+
+function validadorConMensaje(datosEntrada) {
+    //valida si hay datos en el archivo
+    if (datosEntrada == []) {
+        valida = false;
+    }
+
+    //valida el renglon si está vacio o es nulo
+    if (datosEntrada == null || datosEntrada == " ") {
+        valida = false;
+    }
+    //Valida el tamaño de la cadena sea igual a cero
+    if (datosEntrada.length == 0) {
+        valida = false;
+    }
+
+    return (valida);
 }
 
 
@@ -489,15 +564,18 @@ function limpiarRenglones(registrosArchivo, banderaUbicacion) {
     let tipoMovimientoDestino = "";
     let sucursalDestino = "";
 
-    let almacenInvalido = false;
+    let almacenInvalido = true;
+
+    let tarjetaTraspasos = "";
 
     //Contruyo renglones y procedo a limpiar los espacios para armar un renglon que pueda ser interpretado
     renglonArchivo = renglonArchivo.split('\n');
 
 
     renglonArchivo = limpiarArregloDeArchivo(renglonArchivo, banderaUbicacion);
+    almacenInvalido = validador(renglonArchivo);
 
-    if (validador(renglonArchivo)) {
+    if (almacenInvalido) {
 
         for (var i = 0; i <= renglonArchivo.length - 1; i++) {
 
@@ -525,7 +603,7 @@ function limpiarRenglones(registrosArchivo, banderaUbicacion) {
                             RENGLONES_ARMADOS_ORIGEN.push(renglonesArmados);
                         } else {
 
-                            almacenInvalido = true;
+                            almacenInvalido = false;
 
                         }
 
@@ -547,15 +625,20 @@ function limpiarRenglones(registrosArchivo, banderaUbicacion) {
                             RENGLONES_ARMADOS_DESTINO.push(renglonesArmados);
                         } else {
 
-                            almacenInvalido = true;
+                            almacenInvalido = false;
 
                         }
 
                         //RENGLONES_ARMADOS_DESTINO.push(validaCampoReferencia(renglonArchivoTemporal));
                     }
 
+                    tarjetaTraspasos = tarjetaTraspasos + obtenerSegmentoArreglo(renglonesArmados, 3, "|") + //Fecha
+                        "|" + obtenerSegmentoArreglo(renglonesArmados, 5, "|") + //Consecutivo o folio
+                        "|" + obtenerSegmentoArreglo(renglonesArmados, 4, "|") + //Almacen origen
+                        "|" + obtenerSegmentoArreglo(renglonesArmados, 7, "|") + "\n"; //Costo
 
                     renglonesConcatenados = renglonesConcatenados + renglonesArmados + "\n";
+
 
                 } else {
                     continuarLectura = false;
@@ -563,17 +646,22 @@ function limpiarRenglones(registrosArchivo, banderaUbicacion) {
             }
         }
 
-    } else {
-        alert("Favor de colocar una clave valida");
     }
 
-    if (almacenInvalido) {
-        alert("El almacen del archivo de destino no coincide con el almacen seleccionado");
-        inicializarVariablesTraspaso();
+
+    if (almacenInvalido == false) {
+        alert(mensaje);
+        inicializarVariablesTraspaso("origen");
+        inicializarVariablesTraspaso("destino");
+        limpiarErrores();
+
         renglonesConcatenados = "";
-        almacenInvalido = false;
+        almacenInvalido = true;
     }
-    return renglonesConcatenados;
+
+    console.log("***************TRASPASOS DE " + banderaUbicacion + " CARGADOS*****************");
+    console.log(renglonesConcatenados);
+    return tarjetaTraspasos;
 
 
 }
@@ -595,13 +683,16 @@ function quitarEspacios(renglonArchivo) {
 
     let validaConsDestino = true;
 
+    let almacen = "";
+
     //Se ignoran los primeros 2 indices ya que son informacion basura
     renglonArmado = renglonArchivo.toString();
     renglonArmado = renglonArmado.replace(/\s+/g, '|');
     renglonArmado = renglonArmado.replace(/[,]+/g, '');
 
+    almacen = obtenerSegmentoArreglo(renglonArmado, 4, "|");
     //if (indiceOrigen == "V05M" || indiceOrigen == "V05R" || indiceOrigen == "V05X" || indiceDestino == "V05M" || indiceDestino == "V05R" || indiceOrigen == "V05X") {
-    if (indiceOrigen == "V05") {
+    if (almacen == "V05M" || almacen == "V05X" || almacen == "V05R" || almacen == "V05I") {
         renglonArmadoArray = construirArreglo(renglonArmado, "|");
 
         for (var x = 0; x <= 1; x++) {
@@ -715,6 +806,10 @@ function validaCampoReferencia(arregloRenglon) {
 
 
 
+
+
+
+
 //FUNCIONES DE MENSAJES A MOSTRAR.
 //obtengo el tipo de traspaso de los archivos de origen y destino
 function muestraTipoTraspaso(bandera) {
@@ -723,21 +818,43 @@ function muestraTipoTraspaso(bandera) {
     let sucOrigen = "";
     let sucDestino = "";*/
 
+
+    //if (RENGLONES_ARMADOS_ORIGEN[1] == "") {
     if (bandera == "origen") {
         traspasoOrigen = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[1], 6, "|");
         sucOrigen = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[1], 4, "|");
+
+        if (sucOrigen == "V05M" || sucOrigen == "V05R" || sucOrigen == "V05X" || sucOrigen == "V05I") {
+            sucOrigen = "V05 CEDIS";
+        }
+
         document.getElementById("txtOrigen").textContent = traspasoOrigen + " de SUC: " + sucOrigen;
 
     }
+    //}
 
+
+    //if (RENGLONES_ARMADOS_DESTINO[1] == "") {
     if (bandera == "destino") {
         traspasoDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[1], 6, "|");
         sucDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[1], 4, "|");
+
+        if (sucDestino == "V05M" || sucDestino == "V05R" || sucDestino == "V05X" || sucDestino == "V05I") {
+            sucDestino = "V05";
+        }
+
+
         document.getElementById("txtDestino").textContent = traspasoDestino + " de SUC: " + sucDestino;
     }
-
+    // }
 
 }
+
+
+
+
+
+
 
 
 //FUNCIONES DE REGLA DE NEGOCIO.
@@ -754,6 +871,30 @@ function conciliar() {
 
 }
 
+function validaConciliacion() {
+    let respuesta = "";
+
+    if (contadorTraspasosOrigen == contadorTraspasosDestino) {
+
+
+        respuesta = "¡CONCILIACION EXITOSA!"
+    }
+
+    if (contadorTraspasosOrigen > contadorTraspasosDestino) {
+
+        respuesta = "Cantidad de traspasos no reflejados en destino: " + (contadorTraspasosOrigen - contadorTraspasosDestino);
+
+    }
+
+    if (contadorTraspasosOrigen < contadorTraspasosDestino) {
+
+        respuesta = "Cantidad de traspasos no reflejados en origen: " + (contadorTraspasosDestino - contadorTraspasosOrigen);
+
+        }
+
+    return respuesta;
+}
+
 function construyeReporte() {
     let respuesta = "";
 
@@ -761,12 +902,19 @@ function construyeReporte() {
 
     respuesta = traspasoOrigen + " DE " + sucOrigen + "  VS  " + traspasoDestino + " DE " + sucDestino + "\n";
     respuesta = respuesta + "Encontrados en " + sucOrigen + ": " + contadorTraspasosOrigen + "  VS  " + "Encontrados en " + sucDestino + ": " + contadorTraspasosDestino + "\n";
+    respuesta = respuesta + validaConciliacion() + "\n";
+    
+
+
 
     return respuesta;
 }
 
 function contarFrecuencias() {
     for (var i = 0; i <= RENGLONES_ARMADOS_ORIGEN.length - 1; i++) {
+
+        //FALTA VALIDACION DEL CEDIS PARA REALIZAR EL CONTEO
+
         if (sucDestino == obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[i], 9, "|")) {
             contadorTraspasosOrigen++;
         }
