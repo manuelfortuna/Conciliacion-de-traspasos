@@ -864,113 +864,160 @@ function conciliar() {
 
     mensaje = buscaConsDet();
 
-
     reporte = construyeReporte();
 
     document.getElementById("txtTraspasosResultado").value = reporte + mensaje;
 
 }
 
-function validaConciliacion() {
-    let respuesta = "";
-
-    if (contadorTraspasosOrigen == contadorTraspasosDestino) {
-
-
-        respuesta = "¡CONCILIACION EXITOSA!"
-    }
-
-    if (contadorTraspasosOrigen > contadorTraspasosDestino) {
-
-        respuesta = "Cantidad de traspasos no reflejados en destino: " + (contadorTraspasosOrigen - contadorTraspasosDestino);
-
-    }
-
-    if (contadorTraspasosOrigen < contadorTraspasosDestino) {
-
-        respuesta = "Cantidad de traspasos no reflejados en origen: " + (contadorTraspasosDestino - contadorTraspasosOrigen);
-
-        }
-
-    return respuesta;
-}
-
 function construyeReporte() {
     let respuesta = "";
 
-    contarFrecuencias();
-
     respuesta = traspasoOrigen + " DE " + sucOrigen + "  VS  " + traspasoDestino + " DE " + sucDestino + "\n";
     respuesta = respuesta + "Encontrados en " + sucOrigen + ": " + contadorTraspasosOrigen + "  VS  " + "Encontrados en " + sucDestino + ": " + contadorTraspasosDestino + "\n";
-    respuesta = respuesta + validaConciliacion() + "\n";
-    
+    //respuesta = respuesta + validaConciliacion() + "\n";
+
 
 
 
     return respuesta;
 }
 
-function contarFrecuencias() {
-    for (var i = 0; i <= RENGLONES_ARMADOS_ORIGEN.length - 1; i++) {
+function contarFrecuencias(arrayAlmacenesOrigen, arrayAlmacenesDestino) {
 
-        //FALTA VALIDACION DEL CEDIS PARA REALIZAR EL CONTEO
+    let respuesta = true;
 
-        if (sucDestino == obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[i], 9, "|")) {
-            contadorTraspasosOrigen++;
-        }
+    contadorTraspasosOrigen = arrayAlmacenesOrigen.length;
+    contadorTraspasosDestino = arrayAlmacenesDestino.length;
+
+    if(contadorTraspasosOrigen != contadorTraspasosDestino){
+        respuesta = false;
     }
 
-    for (var x = 0; x <= RENGLONES_ARMADOS_DESTINO.length - 1; x++) {
-        if (sucOrigen == obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[x], 9, "|")) {
-            contadorTraspasosDestino++;
-
-        }
-
-    }
-
+    return respuesta;
 }
 
 //Realiza la busqueda de los folios de origen en los folios de destino
 function buscaConsDet() {
     let consecOrigen = "";
     let consecDestino = "";
-    let encontrado = false;
+    let encontrado;
 
     let tipoMovAlmacenOrigen = "";
     let tipoMovAlmacenDestino = "";
 
-    for (var i = 0; i <= RENGLONES_ARMADOS_ORIGEN.length - 1; i++) {
-        tipoMovAlmacenOrigen = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[i], 6, "|");
+    let almacenOrigenConciliar = "";
+    let almacenDestinoConciliar = "";
+    let arrayAlmacenesOrigen = [];
+    let arrayAlmacenesDestino = [];
 
+    let conciliacion;
+
+
+
+
+    //Se obtiene tipo de movimiento de almacen en origen
+    for (var r = 0; r <= RENGLONES_ARMADOS_ORIGEN.length - 1; r++) {
+        //Obtiene el almecen de origen
+        almacenOrigenConciliar = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[r], 9, "|");
+        //obtengo el tipo de movimeinto del almacen de origen
+        tipoMovAlmacenOrigen = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[r], 6, "|");
+
+        //Tipo de movimiento trasal en origen
         if (tipoMovAlmacenOrigen == "TRASAL") {
-            consecOrigen = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[i], 5, "|");
+
+
+
+            //Realiza una depuracion de los almacenes, SE BUSCA EL ALMACEN QUE ESTA EN DESTINO DENTRO DE ORIGEN
+            if (almacenOrigenConciliar == indiceDestino) {
+
+                arrayAlmacenesOrigen.push(RENGLONES_ARMADOS_ORIGEN[r]);
+                //consecOrigen = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[i], 5, "|");
+            }
+
+
         }
+
+        //Tipo de movimiento traent en origen
         if (tipoMovAlmacenOrigen == "TRAENT") {
-            consecOrigen = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[i], 10, "|");
-        }
 
-        for (var y = 0; y <= RENGLONES_ARMADOS_DESTINO.length - 1; y++) {
-
-            tipoMovAlmacenDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[y], 6, "|");
-            if (tipoMovAlmacenDestino == "TRASAL") {
-                consecDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[y], 5, "|");
+            if (almacenOrigenConciliar == indiceDestino) {
+                arrayAlmacenesOrigen.push(RENGLONES_ARMADOS_ORIGEN[r]);
+                //consecOrigen = obtenerSegmentoArreglo(RENGLONES_ARMADOS_ORIGEN[i], 10, "|");
             }
-            if (tipoMovAlmacenDestino == "TRAENT") {
-                consecDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[y], 10, "|");
-            }
-
-            if (consecOrigen == consecDestino) {
-                mensaje = mensaje + "ConsOrigen: " + consecOrigen + " --> ConsDestino: " + consecDestino + "\n";
-
-                encontrado = true;
-            }
-
-        }
-        if (encontrado == false) {
-
-            //mensaje = mensaje + "ConsOrigen: " + consecOrigen + " --> No encontrado " + "\n";
-            console.log(mensaje + "ConsOrigen: " + consecOrigen + " --> No encontrado " + "\n");
         }
     }
+
+
+    //Se obtiene tipo de movimiento de almacen en destino
+    for (var y = 0; y <= RENGLONES_ARMADOS_DESTINO.length - 1; y++) {
+
+        //Obtiene el almecen destino
+        almacenDestinoConciliar = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[y], 9, "|");
+
+        //obtengo el tipo de movimeinto del almacen destino
+        tipoMovAlmacenDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[y], 6, "|");
+
+        //Tipo de movimiento trasal en destino
+        if (tipoMovAlmacenDestino == "TRASAL") {
+
+            if (almacenDestinoConciliar == indiceOrigen) {
+                //consecDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[y], 5, "|");
+                arrayAlmacenesDestino.push(RENGLONES_ARMADOS_DESTINO[y]);
+            }
+
+        }
+        //Tipo de movimiento traent en destino
+        if (tipoMovAlmacenDestino == "TRAENT") {
+
+            if (almacenDestinoConciliar == indiceOrigen) {
+                //consecDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[y], 5, "|");
+                arrayAlmacenesDestino.push(RENGLONES_ARMADOS_DESTINO[y]);
+            }
+            //consecDestino = obtenerSegmentoArreglo(RENGLONES_ARMADOS_DESTINO[y], 10, "|");
+        }
+
+    }
+
+    //Cuenta traspasos encontrados en cada uno de los archivos.
+
+    encontrado = contarFrecuencias(arrayAlmacenesOrigen,arrayAlmacenesDestino)
+
+    if(encontrado == true){
+        
+        //Valida el consecutivo de origen vs el consecutivo de destino
+        for(var x = 0; x<=arrayAlmacenesOrigen.length-1;x++){
+
+            for(var z = 0; z<=arrayAlmacenesDestino-1;z++){
+
+                if(arrayAlmacenesOrigen[x] == arrayAlmacenesDestino[z]){
+                    
+                    mensaje = "Armo valores a mostrar";
+                }
+
+            }
+
+        }
+        //Valida la sumatoria total de los traspasos
+
+        conciliacion = true;
+        
+
+    } else{
+        //Error en la conciliacion
+        //Se procede a buscar el folio no encontrado
+        conciliacion = false;
+        mensaje = "Error: Diferencia en Folios "
+        
+    }
+
+    if(conciliacion == true){
+        mensaje = "Conciliacion exitosa \n" + mensaje;
+    }
+
+    if(conciliacion == false){
+        mensaje = mensaje + "CONCILIACION FALLIDA :(";
+    }
+
     return mensaje;
 }
