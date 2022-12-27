@@ -738,6 +738,7 @@ function validaCampoReferencia(arregloRenglon) {
     let arregloRenglonArray = [];
     let tamanoArreglo = 0;
     let segmento = "";
+    let movimiento = "";
 
     cia = obtenerSegmentoArreglo(arregloRenglon, 1, "|");
     zona = obtenerSegmentoArreglo(arregloRenglon, 2, "|");
@@ -771,6 +772,7 @@ function validaCampoReferencia(arregloRenglon) {
     } else {
         //Se convierte en arreglo la cadena recibida
         arregloRenglonArray = construirArreglo(arregloRenglon, "|");
+        movimiento = arregloRenglonArray[5];
 
         //Limpia los primeros datos
 
@@ -778,21 +780,41 @@ function validaCampoReferencia(arregloRenglon) {
             arregloRenglonArray.shift();
         }
 
-        //Limpia los ultimos datos
-        tamanoArreglo = arregloRenglonArray.length - 1;
+        //Limpia los ultimos datos EN UN TRASAL
+        if (movimiento == "TRASAL") {
+            for (var y = 0; y <= 2; y++) {
 
-        for (var y = 0; y <= 2; y++) {
+                segmento = arregloRenglonArray.pop();
 
-            segmento = arregloRenglonArray.pop();
+                if (y == 1) {
+                    cons_det = segmento;
+                }
 
-            if (y == 1) {
-                cons_det = segmento;
+                if (y == 2) {
+                    alm_des = segmento;
+                }
             }
 
-            if (y == 2) {
-                alm_des = segmento;
-            }
         }
+
+        //Limpia los ultimos datos EN UN TRAENT
+
+        if (movimiento == "TRAENT") {
+            for (var y = 0; y <= 3; y++) {
+
+                segmento = arregloRenglonArray.pop();
+
+                if (y == 2) {
+                    cons_det = segmento;
+                }
+
+                if (y == 3) {
+                    alm_des = segmento;
+                }
+            }
+
+        }
+
         //arreglo restante es la referencia
         arregloRenglonCadena = arregloRenglonArray.toString();
         referencia = arregloRenglonCadena.replace(/[,]+/g, ' ');
@@ -861,12 +883,54 @@ function muestraTipoTraspaso(bandera) {
 /*Funcion de boton conciliar*/
 function conciliar() {
     let reporte = "";
+    let respuesta = "";
+
+
+
+    //Valida si pertenece al cedis
+    //D -> DESTINO
+    //O -> ORIGEN
+
+    if (indiceDestino == "V05") {
+       respuesta = respuesta + cambiaAlmacen05("V05M", "D");
+       respuesta = respuesta + cambiaAlmacen05("V05R", "D");
+       //respuesta = respuesta + cambiaAlmacen05("V05S", "D");
+       //respuesta = respuesta + cambiaAlmacen05("V05I", "D");
+       //respuesta = respuesta + cambiaAlmacen05("V05X", "D");
+
+    } else if (indiceOrigen == "V05") {
+        respuesta = respuesta + cambiaAlmacen05("V05M", "O");
+        respuesta = respuesta + cambiaAlmacen05("V05R", "O");
+        //respuesta = respuesta + cambiaAlmacen05("V05S", "O");
+        //respuesta = respuesta + cambiaAlmacen05("V05I", "O");
+        //respuesta = respuesta + cambiaAlmacen05("V05X", "O");
+
+    } else if (indiceOrigen != "V05" || indiceDestino != "V05") {
+        //No pertenece al cedis
+        mensaje = buscaConsDet();
+        reporte = construyeReporte();
+        respuesta = reporte + mensaje;
+    }
+
+    document.getElementById("txtTraspasosResultado").value = respuesta;
+
+}
+
+function cambiaAlmacen05(almacen, indice) {
+    let respuesta = "";
+    if (indice == "O") {
+        indiceOrigen = almacen;
+    }
+
+    if (indice == "D") {
+        indiceDestino = almacen;
+    }
 
     mensaje = buscaConsDet();
-
     reporte = construyeReporte();
+    respuesta = reporte + mensaje;
 
-    document.getElementById("txtTraspasosResultado").value = reporte + mensaje;
+    return respuesta;
 
 }
 
@@ -890,7 +954,7 @@ function contarFrecuencias(arrayAlmacenesOrigen, arrayAlmacenesDestino) {
     contadorTraspasosOrigen = arrayAlmacenesOrigen.length;
     contadorTraspasosDestino = arrayAlmacenesDestino.length;
 
-    if(contadorTraspasosOrigen != contadorTraspasosDestino){
+    if (contadorTraspasosOrigen != contadorTraspasosDestino) {
         respuesta = false;
     }
 
@@ -899,8 +963,6 @@ function contarFrecuencias(arrayAlmacenesOrigen, arrayAlmacenesDestino) {
 
 //Realiza la busqueda de los folios de origen en los folios de destino
 function buscaConsDet() {
-    let consecOrigen = "";
-    let consecDestino = "";
     let encontrado;
 
     let tipoMovAlmacenOrigen = "";
@@ -981,43 +1043,107 @@ function buscaConsDet() {
 
     //Cuenta traspasos encontrados en cada uno de los archivos.
 
-    encontrado = contarFrecuencias(arrayAlmacenesOrigen,arrayAlmacenesDestino)
+    encontrado = contarFrecuencias(arrayAlmacenesOrigen, arrayAlmacenesDestino);
 
-    if(encontrado == true){
-        
+    if (encontrado == true) {
+
         //Valida el consecutivo de origen vs el consecutivo de destino
-        for(var x = 0; x<=arrayAlmacenesOrigen.length-1;x++){
 
-            for(var z = 0; z<=arrayAlmacenesDestino-1;z++){
-
-                if(arrayAlmacenesOrigen[x] == arrayAlmacenesDestino[z]){
-                    
-                    mensaje = "Armo valores a mostrar";
-                }
-
-            }
+        if (tipoMovAlmacenOrigen == "TRAENT") {
 
         }
+
+        if (tipoMovAlmacenOrigen == "TRASAL") {
+
+        }
+
         //Valida la sumatoria total de los traspasos
 
         conciliacion = true;
-        
 
-    } else{
+
+    } else {
         //Error en la conciliacion
         //Se procede a buscar el folio no encontrado
         conciliacion = false;
-        mensaje = "Error: Diferencia en Folios "
-        
+        mensaje = "\n Error: Diferencia en Folios \n";
+
+        //Valida si devuelve algun resultado en la busqueda de los folios.
+
+        mensaje = mensaje + muestraTraspasosConciliados(arrayAlmacenesOrigen, arrayAlmacenesDestino);
+        mensaje = mensaje + muestraTraspasosConciliados(arrayAlmacenesDestino, arrayAlmacenesOrigen);
+
     }
 
-    if(conciliacion == true){
+    if (conciliacion == true) {
         mensaje = "Conciliacion exitosa \n" + mensaje;
     }
 
-    if(conciliacion == false){
+    if (conciliacion == false) {
         mensaje = mensaje + "CONCILIACION FALLIDA :(";
     }
 
     return mensaje;
+}
+
+
+function muestraTraspasosConciliados(arrayAlmacenesOrigen, arrayAlmacenesDestino) {
+    let consecOrigen = "";
+    let consecDestino = "";
+    let respuesta = "";
+    let tipoMovimientoOrigen = obtenerSegmentoArreglo(arrayAlmacenesOrigen[1], 6, "|");
+    let tipoMovimientoDestino = obtenerSegmentoArreglo(arrayAlmacenesDestino[1], 6, "|");
+    let borrado = "";
+    let contruirRenglonOrigen = "";
+    let contruirRenglonDestino = "";
+    let encontrado = false;
+    let z = 0;
+
+    //Valida el consecutivo de origen vs el consecutivo de destino
+    for (var x = 0; x <= arrayAlmacenesOrigen.length - 1; x++) {
+        //Inicializa variable de busqueda
+        encontrado = false;
+        //obtengo consecutivo de origen de acuerdo al tipo de movimiento
+        if (tipoMovimientoOrigen == "TRAENT") {
+            consecOrigen = obtenerSegmentoArreglo(arrayAlmacenesOrigen[x], 10, "|");
+        }
+        if (tipoMovimientoOrigen == "TRASAL") {
+            consecOrigen = obtenerSegmentoArreglo(arrayAlmacenesOrigen[x], 5, "|");
+        }
+
+        //obtengo consecutivo de destino de acuerdo al tipo de movimiento
+        while (encontrado == false && z <= arrayAlmacenesDestino.length - 1) {
+
+            if (tipoMovimientoDestino == "TRAENT") {
+                consecDestino = obtenerSegmentoArreglo(arrayAlmacenesDestino[z], 10, "|");
+            }
+            if (tipoMovimientoDestino == "TRASAL") {
+                consecDestino = obtenerSegmentoArreglo(arrayAlmacenesDestino[z], 5, "|");
+            }
+
+
+            if (consecOrigen == consecDestino) {
+
+                contruirRenglonOrigen = obtenerSegmentoArreglo(arrayAlmacenesOrigen[x], 3, "|") + "|" + obtenerSegmentoArreglo(arrayAlmacenesOrigen[x], 5, "|") + "|" + obtenerSegmentoArreglo(arrayAlmacenesOrigen[x], 7, "|");
+                contruirRenglonDestino = obtenerSegmentoArreglo(arrayAlmacenesDestino[z], 3, "|") + "|" + obtenerSegmentoArreglo(arrayAlmacenesDestino[z], 5, "|") + "|" + obtenerSegmentoArreglo(arrayAlmacenesDestino[z], 7, "|");
+                //respuesta = respuesta + contruirRenglonOrigen + "  " + contruirRenglonDestino + "\n";
+
+                //borrado = arrayAlmacenesOrigen.pop();
+                encontrado = true;
+
+            }
+            z++;
+        }
+
+        if (encontrado == false) {
+            contruirRenglonOrigen = obtenerSegmentoArreglo(arrayAlmacenesOrigen[x], 3, "|") + "|" + obtenerSegmentoArreglo(arrayAlmacenesOrigen[x], 5, "|") + "|" + obtenerSegmentoArreglo(arrayAlmacenesOrigen[x], 7, "|");
+            contruirRenglonDestino = "No encontrado";
+            respuesta = respuesta + contruirRenglonOrigen + "  " + contruirRenglonDestino + "\n";
+
+        }
+    }
+
+    //Responde FOLIOS ENCONTRADOS + FOLIOS NO ENCONTRADOS
+    return respuesta;
+
 }
